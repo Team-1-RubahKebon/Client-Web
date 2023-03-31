@@ -1,10 +1,14 @@
 import { useNavigate } from "react-router-dom";
 
-function TableRowClassRoom() {
+function TableRowClassRoom({ clas }) {
   const navigation = useNavigate();
 
   const gotoDetailClass = () => {
     navigation("/detail_class");
+  };
+
+  const totalAssignment = (assign) => {
+    return assign.length;
   };
 
   return (
@@ -15,7 +19,7 @@ function TableRowClassRoom() {
         className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
       >
         <div>
-          <div className="text-base font-semibold">Neil Sims</div>
+          <div className="text-base font-semibold">{clas?.name}</div>
           <div className="font-normal text-gray-500">
             neil.sims@flowbite.com
           </div>
@@ -24,8 +28,7 @@ function TableRowClassRoom() {
       <td className="px-6 py-4">React Developer</td>
       <td className="px-6 py-4">
         <div className="flex items-center">
-          <div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>{" "}
-          Online
+          {totalAssignment(clas?.Assignments)}
         </div>
       </td>
       <td className="px-6 py-4">

@@ -5,6 +5,7 @@ import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import Classroom from "../pages/Classroom";
 import DetailClass from "../pages/DetailClass";
+import TaskPage from "../pages/TaskPage";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
       },
       {
         path: "task",
-        element: <HomePage />,
+        element: <TaskPage />,
       },
       {
         path: "classroom",

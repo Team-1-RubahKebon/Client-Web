@@ -1,15 +1,6 @@
 import TableRowClassRoom from "../components/table/TableRowClassRoom";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchClass } from "../stores/action/classActionCreator";
-function Classroom() {
-  const data = useSelector((state) => state?.classes);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchClass());
-  }, []);
-
+function TaskPage() {
   return (
     <div>
       <div className="p-5 sm:ml-64">
@@ -43,8 +34,21 @@ function Classroom() {
                   </div>
                 </div>
               </form>
+              <div className="form-control">
+                <div className="input-group">
+                  <select className="select select-bordered md:select-md ">
+                    <option disabled selected>
+                      Select by class
+                    </option>
+                    <option>12 IPA 1</option>
+                    <option>12 IPA 2</option>
+                    <option>12 IPA 3</option>
+                  </select>
+                  <button className="btn">Go</button>
+                </div>
+              </div>
               <div>
-                <button className="inline-flex items-center btn md:btn-md ">
+                <button className="inline-flex items-center btn  md:btn-md ">
                   Add New Task
                 </button>
               </div>
@@ -56,29 +60,59 @@ function Classroom() {
                     No
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Name Class
+                    Name Assignment
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Total Student
+                    Assignment Date
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Total Assigment
+                    Class
                   </th>
                   <th scope="col" className="px-6 py-3">
                     Action
                   </th>
                 </tr>
               </thead>
-              <tbody>
-                {data?.classes.map((clas) => (
-                  <TableRowClassRoom key={clas._id} clas={clas} />
-                ))}
-              </tbody>
+              <tbody></tbody>
             </table>
+            <div className="flex justify-center">
+              <div className="btn-group">
+                <button className="btn">«</button>
+                <button className="btn">1</button>
+                <button className="btn">2</button>
+                <button className="btn btn-disabled">...</button>
+                <button className="btn">99</button>
+                <button className="btn">100</button>
+                <button className="btn">»</button>
+              </div>
+              {/* The button to open modal */}
+              <label htmlFor="my-modal-6" className="btn">
+                open modal
+              </label>
+
+              {/* Put this part before </body> tag */}
+              <input type="checkbox" id="my-modal-6" className="modal-toggle" />
+              <div className="modal modal-bottom sm:modal-middle">
+                <div className="modal-box">
+                  <h3 className="font-bold text-lg">
+                    Congratulations random Internet user!
+                  </h3>
+                  <p className="py-4">
+                    You've been selected for a chance to get one year of
+                    subscription to use Wikipedia for free!
+                  </p>
+                  <div className="modal-action">
+                    <label htmlFor="my-modal-6" className="btn">
+                      Yay!
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
 }
-export default Classroom;
+export default TaskPage;
