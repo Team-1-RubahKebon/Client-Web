@@ -1,6 +1,8 @@
-const initialState = {};
+const initialState = {
+  teacher: [],
+};
 
-function studentAnswerReducer(state = { value: 0 }, action) {
+function teacherReducer(state = { value: 0 }, action) {
   switch (action.type) {
     case "counter/incremented":
       return { value: state.value + 1 };
@@ -11,4 +13,4 @@ function studentAnswerReducer(state = { value: 0 }, action) {
   }
 }
 
-export default studentAnswerReducer;
+export default teacherReducer;
