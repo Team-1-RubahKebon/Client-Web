@@ -29,6 +29,8 @@ function LoginPage() {
         password: userData.password,
       });
 
+      console.log(data);
+
       localStorage.setItem("access_token", data?.access_token);
       // successToast("Success Login");
       navigation("/");

@@ -27,17 +27,20 @@ function RegisterPage() {
         throw error;
       }
 
-      console.log(userData.name, userData.email, userData.password);
-
       const { data } = await axios.post(API_URL + "teachers/register", {
         email: userData.email,
         password: userData.password,
+        name: userData.name,
       });
 
       navigation("/login");
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const gotoLogin = () => {
+    navigation("/login");
   };
 
   return (
@@ -98,6 +101,16 @@ function RegisterPage() {
             </div>
           </div>
         </form>
+        <p className="mt-8 text-xs font-light text-center text-gray-700">
+          {" "}
+          Have an account?{" "}
+          <button
+            className="font-medium text-purple-600 hover:underline"
+            onClick={gotoLogin}
+          >
+            Sign In
+          </button>
+        </p>
       </div>
     </div>
   );
