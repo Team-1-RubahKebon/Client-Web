@@ -2,7 +2,7 @@ function NavbarWeb() {
   return (
     <div>
       <div
-        className="navbar  fixed top-0 z-50 px-5"
+        className="navbar fixed top-0 z-50 px-5 h-[10vh]"
         style={{ backgroundColor: "#004643" }}
       >
         <div className="flex-1">
