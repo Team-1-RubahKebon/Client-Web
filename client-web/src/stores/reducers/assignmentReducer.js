@@ -1,11 +1,27 @@
-const initialState = {};
+import {
+  FETCH_ASSIGNMENTID_SUCCESS,
+  FETCH_ASSIGNMENT_SUCCESS,
+  FETCH_STUDENTANSWER_ID_SUCCESS,
+  LOADING_ASSIGNMENT,
+} from "../action/actionType";
 
-function assignmentReducer(state = { value: 0 }, action) {
+const initialState = {
+  assignments: [],
+  assignment: {},
+  studentAnswer: {},
+  isLoading: true,
+};
+
+function assignmentReducer(state = initialState, action) {
   switch (action.type) {
-    case "counter/incremented":
-      return { value: state.value + 1 };
-    case "counter/decremented":
-      return { value: state.value - 1 };
+    case FETCH_ASSIGNMENT_SUCCESS:
+      return { ...state, assignments: action.payload };
+    case FETCH_ASSIGNMENTID_SUCCESS:
+      return { ...state, assignment: action.payload };
+    case FETCH_STUDENTANSWER_ID_SUCCESS:
+      return { ...state, studentAnswer: action.payload };
+    case LOADING_ASSIGNMENT:
+      return { ...state, isLoading: action.payload };
     default:
       return state;
   }
