@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   BarChart,
   Bar,
@@ -8,42 +9,40 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { fetchClass } from "../../stores/action/classActionCreator";
 
 const GrafikKelas = () => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
+  const data = useSelector((state) => state?.classes);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    // ambil data dari database dan hitung rata-rata nilai per kelas
-    const nilaiPerKelas = [
-      { kelas: "A", score: [80, 90, 70, 85] },
-      { kelas: "B", score: [75, 85, 80, 90] },
-      { kelas: "C", score: [90, 80, 75, 95] },
-    ];
-
-    const rataNilaiPerKelas = nilaiPerKelas.map((kelas) => {
-      const totalNilai = kelas.score.reduce((a, b) => a + b, 0);
-      const rataNilai = totalNilai / kelas.score.length;
-      return { kelas: kelas.kelas, score: rataNilai };
-    });
-
-    // set data grafik
-    setData(rataNilaiPerKelas);
+    dispatch(fetchClass());
   }, []);
+
+  const nilaiPerKelas = data.classes.map((kelas) => {
+    const studentAnswers = data.classes
+      .filter(
+        (data) => data.name === kelas.name && data.Assignments.length > 0
+      )[0]
+      ?.Assignments?.map((assignment) => assignment.StudentAnswers[0]?.score);
+    return { kelas: kelas.name, score: kelas.classAvg };
+  });
 
   return (
     <div>
       <BarChart
-        width={300}
-        height={200}
-        data={data}
+        width={400}
+        height={250}
+        data={nilaiPerKelas}
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="kelas" />
+        <XAxis dataKey="kelas" fill="#ffb703" />
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="score" fill="#8884d8" />
+        <Bar dataKey="score" fill="#1a759f" />
       </BarChart>
     </div>
   );

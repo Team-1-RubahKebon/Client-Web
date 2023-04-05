@@ -9,10 +9,21 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #abd1c6;
+  /* background-color: #abd1c6; */
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+.m-auto.h-screen::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+.m-auto.h-screen::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}
+
+.m-auto.h-screen::-webkit-scrollbar-thumb {
+  background-color: #000000;
 }
