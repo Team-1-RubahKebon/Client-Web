@@ -21,7 +21,7 @@ function NavbarWeb() {
         style={{ backgroundColor: "#1B4965" }}
       >
         <div className="flex-1">
-          <img src="./classmateicon.svg" alt="logo" style={{ width: 80 }} />
+          <img src="./classmateicon.svg" alt="logo" style={{ width: 50 }} />
           <button
             className="btn btn-ghost normal-case text-xl"
             style={{ color: "white" }}

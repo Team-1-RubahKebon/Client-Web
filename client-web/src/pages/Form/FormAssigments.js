@@ -25,6 +25,10 @@ function FormAssigment() {
 
   const [soal, setSoal] = useState(0);
 
+  const handleNextSoal = () => {
+    setSoal(soal + 11);
+  };
+
   const handleNext = (data) => {
     if (soal < 15) {
       setSoal(soal + 1);
@@ -206,13 +210,13 @@ function FormAssigment() {
               </div>
             </div>
             <div className="mt-5">
-              <button className="btn btn-primary" onClick={handleNext}>
+              <button className="btn btn-primary" onClick={handleNextSoal}>
                 Next
               </button>
             </div>
           </div>
         )}
-        {Array.from({ length: 10 }).map((_, index) => {
+        {/* {Array.from({ length: 10 }).map((_, index) => {
           const currentSoal = index + 1;
           return (
             soal === currentSoal && (
@@ -226,7 +230,7 @@ function FormAssigment() {
               />
             )
           );
-        })}
+        })} */}
         {Array.from({ length: 6 }).map((_, index) => {
           const currentSoal = index + 11;
           return (
