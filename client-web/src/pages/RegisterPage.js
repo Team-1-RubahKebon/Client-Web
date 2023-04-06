@@ -94,7 +94,7 @@ function RegisterPage() {
 
             <div className="mt-6">
               <button
-                className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-emerald-700 rounded-md hover:bg-emerald-600 focus:outline-none focus:bg-emerald-600"
+                className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-primary rounded-md  focus:outline-none "
                 type="submit"
               >
                 Register
@@ -106,7 +106,7 @@ function RegisterPage() {
           {" "}
           Have an account?{" "}
           <button
-            className="font-medium text-emerald-800 hover:underline"
+            className="font-medium text-teal-800 hover:underline"
             onClick={gotoLogin}
           >
             Sign In

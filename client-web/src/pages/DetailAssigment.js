@@ -25,8 +25,11 @@ function DetailAssigment() {
     if (studentAnswer.score == 15) {
       score = 0;
     } else {
-      score += 6.667;
+      score += 20;
     }
+
+    dispatch(updateStudentAnswer(id, { Answers: newAnswers, score }));
+
     // const Answers = [
     //   {
     //     rowNumber: 1,
@@ -119,7 +122,6 @@ function DetailAssigment() {
     //     isWrong: true,
     //   },
     // ];
-    dispatch(updateStudentAnswer(id, { Answers: newAnswers, score }));
   };
 
   const handleWrongClick = (i) => {
@@ -129,8 +131,9 @@ function DetailAssigment() {
     if (studentAnswer.score == 0) {
       score = 0;
     } else {
-      score -= 6.667;
+      score -= 20;
     }
+    dispatch(updateStudentAnswer(id, { Answers: newAnswers, score }));
 
     // const Answers = [
     //   {
@@ -224,8 +227,6 @@ function DetailAssigment() {
     //     isWrong: true,
     //   },
     // ];
-
-    dispatch(updateStudentAnswer(id, { Answers: newAnswers, score }));
   };
 
   const dispatch = useDispatch();
@@ -256,6 +257,34 @@ function DetailAssigment() {
     } else {
       return 0;
     }
+  };
+
+  const findStudent = (value) => {
+    const rowFind = `#${value - 10}`;
+    const data = studentAnswer.Answers.find((el) => el.rowNumber == rowFind);
+    if (!data) {
+      return 0;
+    }
+    return data.answer;
+  };
+
+  console.log(studentAnswer);
+
+  const findStudentIsWrong = (value) => {
+    const rowFind = `#${value - 9}`;
+    const data = studentAnswer.Answers.find((el) => el.rowNumber == rowFind);
+    if (!data) {
+      return 0;
+    }
+    return data.isWrong;
+  };
+
+  const findIndexIsWrong = (value) => {
+    const rowFind = `#${value - 9}`;
+    const data = studentAnswer.Answers.findIndex(
+      (el) => el.rowNumber == rowFind
+    );
+    return data;
   };
 
   return (
@@ -312,67 +341,82 @@ function DetailAssigment() {
                 </div>
               </div>
               <div className="mb-2 grid grid-cols-2 gap-4 mx-3">
-                {assignment?.QuestionId?.questions?.map((el, i) => (
-                  <div
-                    className="mt-2 bg-base-100 relative flex flex-col rounded-[20px] w-[900px] max-w-[95%] mx-auto shadow-3xl shadow-shadow-500 dark:!shadow-none p-3 drop-shadow-lg"
-                    key={el._id}
-                  >
-                    <div className="my-2 flex flex-col p-2">
-                      <div className="flex justify-end">
-                        <p>No : {1 + i}</p>
-                      </div>
-                      <div className="relative bottom-6">
-                        <h4 className="text-xl font-bold text-navy-700 ">
-                          Que : {el?.question}
-                        </h4>
-                        <p className="mt-2 text-base font-medium text-navy-700">
-                          Ans : {el?.keyword}
-                        </p>
-                        <p className="mt-2 text-base font-medium text-navy-700">
-                          {Panjang(studentAnswer.Answers) == 0
-                            ? "Student Answer : "
-                            : `Student Answer : ${studentAnswer.Answers[i]?.answer}`}
-                        </p>
-                      </div>
-                      {Panjang(studentAnswer.Answers) == 0 ? (
-                        ""
-                      ) : (
-                        <>
-                          <p className="mt-2 text-base font-medium text-navy-700">
-                            {studentAnswer.Answers[i] &&
-                            studentAnswer.Answers[i].isWrong ? (
-                              <span className="text-error-600">
-                                Wrong Answer
-                              </span>
-                            ) : (
-                              <span className="text-success-600">
-                                Correct Answer
-                              </span>
-                            )}
-                          </p>
-                          <div className="relative">
-                            {studentAnswer.Answers[i] &&
-                            studentAnswer.Answers[i].isWrong ? (
-                              <button
-                                className="btn btn-error absolute bottom-0 right-0"
-                                onClick={() => handleCorrectClick(i)}
-                              >
-                                Wrong
-                              </button>
-                            ) : (
-                              <button
-                                className="btn btn-success absolute bottom-0 right-0"
-                                onClick={() => handleWrongClick(i)}
-                              >
-                                Correct
-                              </button>
-                            )}
+                {assignment?.QuestionId?.questions?.map((el, i) => {
+                  let j = 0;
+                  if (el.answerType == "essay") {
+                    return (
+                      <div
+                        className="mt-2 bg-base-100 relative flex flex-col rounded-[20px] w-[900px] max-w-[95%] mx-auto shadow-3xl shadow-shadow-500 dark:!shadow-none p-3 drop-shadow-lg"
+                        key={el._id}
+                      >
+                        <div className="my-2 flex flex-col p-2">
+                          <div className="flex justify-end">
+                            <p>No : {i + 1}</p>
                           </div>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                ))}
+                          <div className="relative bottom-6 mt-5">
+                            <h4 className="text-xl font-bold text-navy-700 ">
+                              Que : {el?.question}
+                            </h4>
+                            <p className="mt-2 text-base font-medium text-navy-700">
+                              Ans : {el?.keyword}
+                            </p>
+                            <p className="mt-2 text-base font-medium text-navy-700">
+                              {Panjang(studentAnswer.Answers) == 0
+                                ? "Student Answer : "
+                                : `Student Answer : ${findStudent(
+                                    el?.rowNumber
+                                  )}`}
+                            </p>
+                          </div>
+                          {Panjang(studentAnswer.Answers) == 0 ? (
+                            ""
+                          ) : (
+                            <>
+                              <p className="mt-2 text-base font-medium text-navy-700">
+                                {findStudentIsWrong(el?.rowNumber) ? (
+                                  <span className="text-error-600">
+                                    Wrong Answer
+                                  </span>
+                                ) : (
+                                  <span className="text-success-600">
+                                    Correct Answer
+                                  </span>
+                                )}
+                              </p>
+                              <div className="relative">
+                                {findStudentIsWrong(el?.rowNumber) ? (
+                                  <button
+                                    className="btn btn-error absolute bottom-0 right-0"
+                                    onClick={() =>
+                                      handleCorrectClick(
+                                        findIndexIsWrong(el?.rowNumber)
+                                      )
+                                    }
+                                  >
+                                    Wrong
+                                  </button>
+                                ) : (
+                                  <button
+                                    className="btn btn-success absolute bottom-0 right-0"
+                                    onClick={() =>
+                                      handleWrongClick(
+                                        findIndexIsWrong(el?.rowNumber)
+                                      )
+                                    }
+                                  >
+                                    Correct
+                                  </button>
+                                )}
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  } else {
+                    return null;
+                  }
+                })}
               </div>
 
               {assignment?.Answers?.map((student) => (
@@ -404,7 +448,7 @@ function DetailAssigment() {
               ))}
               <div className="flex justify-end p-2 mr-3">
                 <button
-                  className="btn bg-emerald-800 btn-success btn-active mt-2"
+                  className="btn btn-warning bg-amber-600 btn-active mt-2"
                   onClick={() => handlerUpdate(studentAnswer?._id)}
                 >
                   Done
